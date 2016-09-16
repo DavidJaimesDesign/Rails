@@ -1,5 +1,7 @@
 require 'sinatra'
-require 'sinatra/reloader'
+if development?
+	require 'sinatra/reloader'
+end
 SECRET_NO = rand(100)
 
 get '/' do

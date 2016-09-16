@@ -5,13 +5,14 @@ require 'sinatra/reloader' if development?
 get '/' do
 	string = params["string"]
 	shift  = params["shift"]
-
+	enc_string = cypher(string, shift)
 	"cypher goes here"
 	erb :index, :locals => {:enc_string => enc_string}
 end
 
-def cypher(t,s)
-	@t = t
+def cypher(t = " ",s = 0)
+	return "Error max shift is 26" if s > 26 
+	@t = t.to_s
 	@s = s.to_i
 	ascii = t.chars.map {|c| c.ord}
 	shifted = ascii.map  do |c| if c == 32

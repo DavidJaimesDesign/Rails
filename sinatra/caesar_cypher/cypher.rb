@@ -1,7 +1,6 @@
 require 'sinatra'
-if development?
-	require 'sinatra/reloader'
-end
+require 'sinatra/reloader' if development?
+
 
 get '/' do
 	"cypher goes here"

@@ -7,6 +7,7 @@ get '/' do
 	"cypher goes here"
 end
 
+=begin
 def cypher(t,s)
 	@t = t
 	@s = s.to_i
@@ -21,3 +22,4 @@ def cypher(t,s)
 end
 
 cypher(text, shift)
+=end

@@ -3,10 +3,13 @@ require 'sinatra/reloader' if development?
 
 
 get '/' do
+	string = params["string"]
+	shift  = params["shift"]
+
 	"cypher goes here"
+	erb :index, :locals => {:enc_string => enc_string}
 end
 
-=begin
 def cypher(t,s)
 	@t = t
 	@s = s.to_i
@@ -17,8 +20,7 @@ def cypher(t,s)
 									c + @s
 								end
 						end
-	puts shifted.map {|c| c.chr}.join
+	return shifted.map {|c| c.chr}.join
 end
 
-cypher(text, shift)
-=end
+

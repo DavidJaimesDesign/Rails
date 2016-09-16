@@ -4,9 +4,22 @@ body {
 
 #text {
 	font-family: Helvetica;
-	font-size: 45;
+	font-size: 30pt;
 	font-weight: bold;
 	color: white;
+	position: absolute;
+	left: 46.5%;
+	top: 30%;
+}
+
+#cypher {
+	font-family: Helvetica;
+	font-size: 30pt;
+	font-weight: bold;
+	color: white;
+	position: absolute;
+	top: 60%;
+	left: 45%;
 }
 
 #credit {
@@ -14,4 +27,13 @@ body {
 	font-size: 8pt;
 	font-weight: bold;
 	color: white;
+	position: absolute;
+	top: 98%;
+}
+
+#temple {
+	height: 30%;
+	width: 30%;
+	position: absolute;
+	left: 35%;
 }

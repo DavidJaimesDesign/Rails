@@ -11,7 +11,11 @@ get '/' do
 end
 
 def cypher(t = " ",s = 0)
-	return "Error max shift is 26" if s > 26 
+	return t
+end
+
+=begin
+return "Error max shift is 26" if s > 26 
 	@t = t.to_s
 	@s = s.to_i
 	ascii = t.chars.map {|c| c.ord}
@@ -22,6 +26,4 @@ def cypher(t = " ",s = 0)
 								end
 						end
 	return shifted.map {|c| c.chr}.join
-end
-
-
+=end

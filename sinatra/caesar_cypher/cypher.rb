@@ -6,7 +6,7 @@ get '/' do
 	string = params["string"]
 	shift  = params["shift"]
 	enc_string = cypher(string, shift)
-	"cypher goes here"
+	#cypher goes here
 	erb :index, :locals => {:enc_string => enc_string} 
 end
 

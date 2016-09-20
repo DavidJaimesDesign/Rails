@@ -12,9 +12,11 @@ get '/guess' do
 end
 
 get '/win' do
+	erb :win
 end
 
 get '/loose' do
+	erb :loose
 end 
 
 

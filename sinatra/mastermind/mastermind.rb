@@ -8,15 +8,15 @@ get '/' do
 end
 
 get '/guess' do
-	erb :guess, :locals => :{:no_guess => no_guess}
+	erb :guess 
 end
 
 get '/win' do
 	erb :win
 end
 
-get '/loose' do
-	erb :loose
+get '/lose' do
+	erb :lose
 end 
 
 
@@ -49,7 +49,7 @@ def guess_check(board,guess)
 
 end
 
-=begin]\
+=begin
 
 count = 0
 board = Array.new(4)

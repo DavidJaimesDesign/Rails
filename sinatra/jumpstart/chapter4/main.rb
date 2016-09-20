@@ -1,3 +1,4 @@
+#deployed on heroku on the mako changes were made to support heroku moving onto mastermind
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'slim'

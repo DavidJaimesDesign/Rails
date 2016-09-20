@@ -7,6 +7,13 @@ get '/' do
 	erb :index
 end
 
+def code_gen(board)
+	board[0] = rand(6)
+	board[1] = rand(6)
+	board[2] = rand(6)
+	board[3] = rand(6)
+end
+
 =begin
 	colors = ["black", "white", "red", "blue", "yellow", "green"]
 blank_board = ["", "", "", ""]

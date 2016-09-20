@@ -7,6 +7,10 @@ get '/' do
 	erb :index
 end
 
+get '/new' do
+	erb :new
+end
+
 get '/guess' do
 	erb :guess 
 end

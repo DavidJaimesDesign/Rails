@@ -7,23 +7,25 @@ get '/' do
 	erb :index
 end
 
-def code_gen(board)
+get '/guess' do
+	erb :guess, :locals => :{:no_guess => no_guess}
+end
+
+get '/win' do
+end
+
+get '/loose' do
+end 
+
+
+def code_gen
+	board = Array.new
 	board[0] = rand(6)
 	board[1] = rand(6)
 	board[2] = rand(6)
 	board[3] = rand(6)
-end
 
-=begin
-	colors = ["black", "white", "red", "blue", "yellow", "green"]
-blank_board = ["", "", "", ""]
-
-def code_gen(board)
-	colors = ["black", "white", "red", "blue", "yellow", "green"]
-	board[0] = colors[rand(0..5)]
-	board[1] = colors[rand(0..5)]
-	board[2] = colors[rand(0..5)]
-	board[3] = colors[rand(0..5)]
+	return board
 end
 
 def guess_check(board,guess)
@@ -44,6 +46,8 @@ def guess_check(board,guess)
 	puts "There are #{red_pin_arr.length} red pins"
 
 end
+
+=begin]\
 
 count = 0
 board = Array.new(4)

@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
-
+@mastermind = Mastermind.new
 
 get '/' do
 	#"mastermind goes here"
@@ -8,6 +8,7 @@ get '/' do
 end
 
 get '/new' do
+	@mastermind = Mastermind.new
 	erb :new
 end
 

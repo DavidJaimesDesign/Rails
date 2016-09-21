@@ -1,14 +1,52 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
+
+class Mastermind
+	attr_accessor :board, :guess_count, :white_pin, :red_pin
+
+	def initialize
+		@board           = Array.new(4, rand(6))
+		@guess_count     = 0
+		@white_pin_arr   = Array.new
+		@red_pin_arr 	 = Array.new
+	end
+
+	def guess_check(guess)
+		@guess_count += 1
+		@guess = guess
+		no_pin_arr = guess - board
+
+		board.each_with_index do |value, index|
+			if board[index] == guess[index]
+				@red_pin_arr.push(value)
+			end
+		end
+
+		white_pin_arr = guess - no_pin_arr - @red_pin_arr
+	
+		#puts "There are #{white_pin_arr.length} white pins"
+		#puts "There are #{red_pin_arr.length} red pins"
+	end
+end
 @mastermind = Mastermind.new
 
 get '/' do
 	#"mastermind goes here"
-	erb :index
+	@mastermind = Mastermind.new
+	guess = params[:code]
+	if guess != nil
+		guess = guess.split("")
+		guess.each{|int| int.to_i}
+		@mastermind.guess_check(guess)
+	end
+	guess_no = (12 - @mastermind.guess_count)
+
+	redirect to('/lose') if guess_no == 0
+	erb :index, :locals => {:guess_no => guess_no}
 end
 
 get '/new' do
-	@mastermind = Mastermind.new
+	guess = params[:code]
 	erb :new
 end
 
@@ -23,34 +61,6 @@ end
 get '/lose' do
 	erb :lose
 end 
-
-class Mastermind
-	attr_accessor :board, :guess_count, :white_pin, :red_pin
-
-	def initialize
-		@board           = Array.new(4, rand(6))
-		@guess_count     = 0
-		@white_pin_arr   = Array.new
-		@red_pin_arr 	 = Array.new
-	end
-
-	def guess_check(guess)
-		guess_count += 1
-		@guess = guess
-		no_pin_arr = guess - board
-
-		board.each_with_index do |value, index|
-			if board[index] == guess[index]
-				red_pin_arr.push(value)
-			end
-		end
-
-		white_pin_arr = guess - no_pin_arr - red_pin_arr
-	
-		puts "There are #{white_pin_arr.length} white pins"
-		puts "There are #{red_pin_arr.length} red pins"
-	end
-end
 
 =begin
 

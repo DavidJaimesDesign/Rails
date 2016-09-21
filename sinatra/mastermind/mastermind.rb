@@ -23,34 +23,32 @@ get '/lose' do
 	erb :lose
 end 
 
+class Mastermind
+	attr_accessor :board, :guess_count, :white_pin, :red_pin
 
-def code_gen
-	board = Array.new
-	board[0] = rand(6)
-	board[1] = rand(6)
-	board[2] = rand(6)
-	board[3] = rand(6)
-
-	return board
-end
-
-def guess_check(board,guess)
-	@board = board
-	@guess = guess
-	red_pin_arr = Array.new
-	no_pin_arr = guess - board
-
-	board.each_with_index do |value, index|
-		if board[index] == guess[index]
-			red_pin_arr.push(value)
-		end
+	def initialize
+		@board           = Array.new(4, rand(6))
+		@guess_count     = 0
+		@white_pin_arr   = Array.new
+		@red_pin_arr 	 = Array.new
 	end
 
-	white_pin_arr = guess - no_pin_arr - red_pin_arr
-	
-	puts "There are #{white_pin_arr.length} white pins"
-	puts "There are #{red_pin_arr.length} red pins"
+	def guess_check(guess)
+		guess_count += 1
+		@guess = guess
+		no_pin_arr = guess - board
 
+		board.each_with_index do |value, index|
+			if board[index] == guess[index]
+				red_pin_arr.push(value)
+			end
+		end
+
+		white_pin_arr = guess - no_pin_arr - red_pin_arr
+	
+		puts "There are #{white_pin_arr.length} white pins"
+		puts "There are #{red_pin_arr.length} red pins"
+	end
 end
 
 =begin

@@ -31,7 +31,7 @@ end
 
 get '/' do
 	#"mastermind goes here"
-	if session[:code] == nil
+	if session[:code].nil?
 		redirect to('/new')
 	else
 		if session[:guess_count] == 0
@@ -50,7 +50,7 @@ end
 get '/new' do
 	m = Mastermind.new
 	session[:code]        = m.board
-	session[:guess_count] = 12
+	session[:guess_count] = 0
 	redirect to('/')
 end
 

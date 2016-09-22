@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
+set :port, 9494
 
 class Mastermind
 	attr_accessor :board, :guess_count, :white_pin, :red_pin
@@ -20,8 +21,13 @@ class Mastermind
 			end
 		end
 
-		white_pin_arr = guess - no_pin_arr - @red_pin_arr
-		#return the white and red pin arrays
+		@white_pin_arr = guess - no_pin_arr - @red_pin_arr
+	end
+
+	def display_white_pins
+	end
+
+	def display_red_pins
 	end
 end
 
@@ -31,10 +37,10 @@ end
 
 get '/' do
 	#"mastermind goes here"
-	if session[:code].nil?
+	if session[:game].nil?
 		redirect to('/new')
 	else
-		if session[:guess_count] == 0
+		if session[:guess_count] == 12
 			redirect to('/lose')
 		else
 			guess_no = 12 - session[:guess_count]
@@ -44,12 +50,13 @@ get '/' do
 end
 
 post '/' do
-
+	session[:guess_count] += 1
+	#session[:game].guess_check(guess)
+	redirect to('/')
 end
 
 get '/new' do
-	m = Mastermind.new
-	session[:code]        = m.board
+	session[:game]        = Mastermind.new
 	session[:guess_count] = 0
 	redirect to('/')
 end

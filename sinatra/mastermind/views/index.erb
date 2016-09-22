@@ -11,8 +11,8 @@
 		<div><a href="/new">Start Over</a></div>
 		<div><p>Guesses Left:</p></div>
 		<div><p><%= guess_no %></p></div>
-		<form>
-			<input type = 'text' name = 'code'/>
+		<form method = "POST" action = "/">
+			<input type = 'text' name = 'code' min = "0000" max = "9999" size = "4"/>
 		</form>
 	</body>
 </hthm>

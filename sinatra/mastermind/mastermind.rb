@@ -13,6 +13,9 @@ class Mastermind
 
 	def guess_check(guess)
 		@guess = guess
+		guess.split('')
+		guess.each{|int| int.to_i}
+				
 		no_pin_arr = guess - board
 
 		board.each_with_index do |value, index|
@@ -25,9 +28,11 @@ class Mastermind
 	end
 
 	def display_white_pins
+		return "You have #{@white_pin_arr.length} correct digits in the correct location"
 	end
 
 	def display_red_pins
+		return "You have #{@red_pin_arr.length} correct digits but not in the correct location"	
 	end
 end
 
@@ -43,15 +48,17 @@ get '/' do
 		if session[:guess_count] == 12
 			redirect to('/lose')
 		else
-			guess_no = 12 - session[:guess_count]
-			erb :index, :locals => {:guess_no => guess_no}
+			white_pins = session[:game].display_white_pins
+			red_pins   = session[:game].display_red_pins
+			guess_no   = 12 - session[:guess_count]
+			erb :index, :locals => {:guess_no => guess_no, :white_pins => white_pins, :red_pins => red_pins}
 		end
 	end
 end
 
 post '/' do
 	session[:guess_count] += 1
-	#session[:game].guess_check(guess)
+	session[:game].guess_check(:code)
 	redirect to('/')
 end
 
@@ -59,14 +66,6 @@ get '/new' do
 	session[:game]        = Mastermind.new
 	session[:guess_count] = 0
 	redirect to('/')
-end
-
-get '/?code=9999' do
-	redirect to('/guess')
-end
-
-get '/guess' do
-	erb :guess, :locals => {:guess_no => guess_no}
 end
 
 get '/win' do

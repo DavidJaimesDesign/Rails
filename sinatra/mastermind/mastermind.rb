@@ -6,13 +6,11 @@ class Mastermind
 
 	def initialize
 		@board           = Array.new(4, rand(6))
-		@guess_count     = 0
 		@white_pin_arr   = Array.new
 		@red_pin_arr 	 = Array.new
 	end
 
 	def guess_check(guess)
-		@guess_count += 1
 		@guess = guess
 		no_pin_arr = guess - board
 
@@ -23,23 +21,27 @@ class Mastermind
 		end
 
 		white_pin_arr = guess - no_pin_arr - @red_pin_arr
-	
-		#puts "There are #{white_pin_arr.length} white pins"
-		#puts "There are #{red_pin_arr.length} red pins"
+		#return the white and red pin arrays
 	end
 end
-@mastermind = Mastermind.new
+
+configure do 
+	enable :sessions
+end
 
 get '/' do
 	#"mastermind goes here"
-	@mastermind = Mastermind.new
+	session[:code] = Mastermind.new
+	session[:guess_count] = 0 
+
 	guess = params[:code]
 	if guess != nil
 		guess = guess.split("")
 		guess.each{|int| int.to_i}
-		@mastermind.guess_check(guess)
+		session[:code].guess_check(guess)
+		session[:guess_count] += 1
 	end
-	guess_no = (12 - @mastermind.guess_count)
+	guess_no = 12 - session[:guess_count]
 
 	redirect to('/lose') if guess_no == 0
 	erb :index, :locals => {:guess_no => guess_no}

@@ -52,8 +52,16 @@ get '/new' do
 	erb :new
 end
 
-get '/guess' do
-	erb :guess 
+get '/?code=:code' do
+	guess = params[:code]
+	if guess != nil
+		guess = guess.split("")
+		guess.each{|int| int.to_i}
+		session[:code].guess_check(guess)
+		session[:guess_count] += 1
+	end
+	guess_no = 12 - session[:guess_count]
+	erb :guess, :locals => {:guess_no => guess_no}
 end
 
 get '/win' do

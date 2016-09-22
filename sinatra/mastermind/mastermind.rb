@@ -31,36 +31,34 @@ end
 
 get '/' do
 	#"mastermind goes here"
-	session[:code] = Mastermind.new
-	session[:guess_count] = 0 
-
-	guess = params[:code]
-	if guess != nil
-		guess = guess.split("")
-		guess.each{|int| int.to_i}
-		session[:code].guess_check(guess)
-		session[:guess_count] += 1
+	if session[:code] == nil
+		redirect to('/new')
+	else
+		if session[:guess_count] == 0
+			redirect to('/lose')
+		else
+			guess_no = 12 - session[:guess_count]
+			erb :index, :locals => {:guess_no => guess_no}
+		end
 	end
-	guess_no = 12 - session[:guess_count]
+end
 
-	redirect to('/lose') if guess_no == 0
-	erb :index, :locals => {:guess_no => guess_no}
+post '/' do
+
 end
 
 get '/new' do
-	guess = params[:code]
-	erb :new
+	m = Mastermind.new
+	session[:code]        = m.board
+	session[:guess_count] = 12
+	redirect to('/')
 end
 
-get '/?code=:code' do
-	guess = params[:code]
-	if guess != nil
-		guess = guess.split("")
-		guess.each{|int| int.to_i}
-		session[:code].guess_check(guess)
-		session[:guess_count] += 1
-	end
-	guess_no = 12 - session[:guess_count]
+get '/?code=9999' do
+	redirect to('/guess')
+end
+
+get '/guess' do
 	erb :guess, :locals => {:guess_no => guess_no}
 end
 
@@ -71,31 +69,3 @@ end
 get '/lose' do
 	erb :lose
 end 
-
-=begin
-
-count = 0
-board = Array.new(4)
-code_gen(board)
-test_rig = ["blue", "blue", "green", "black"]
-
-while count < 12 do
-	puts "Color for the 1st spot"
-	blank_board[0] = gets.chomp
-	puts "Color for the 2nd spot"
-	blank_board[1] = gets.chomp
-	puts "Color for the 3rd spot"
-	blank_board[2] = gets.chomp
-	puts "Color for the 4th spot"
-	blank_board[3] = gets.chomp
-	puts "C1 = #{blank_board[0]} C2 = #{blank_board[1]} C3 = #{blank_board[2]} C4 = #{blank_board[3]}"
-
-	guess_check(board, blank_board)
-	if board == blank_board 
-		"Game Over You have defeated the best neural net in the world"
-		break
-	end
-
-	count += 1
-end
-=end

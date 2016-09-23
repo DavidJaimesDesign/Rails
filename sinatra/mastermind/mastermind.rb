@@ -12,9 +12,8 @@ class Mastermind
 	end
 
 	def guess_check(guess)
-		@guess = guess
-		guess.split('')
-		guess.each{|int| int.to_i}
+		guess = guess.split('')
+		guess = guess.each{|int| int.to_i}
 				
 		no_pin_arr = guess - board
 
@@ -58,7 +57,7 @@ end
 
 post '/' do
 	session[:guess_count] += 1
-	session[:game].guess_check(:code)
+	session[:game].guess_check(params[:code])
 	redirect to('/')
 end
 

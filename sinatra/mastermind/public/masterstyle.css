@@ -1,0 +1,34 @@
+body {
+	background-color: black;
+}
+#guess {
+	font-family: Courier;
+	font-size: 20pt;
+	color: #00ff00;
+}
+
+p.text {
+	font-family: Courier;
+	color: #00ff00;
+}
+
+#lose{
+	font-family: Courier;
+	color: #00ff00;
+}
+
+#win {
+	font-family: Courier;
+	color: #00ff00;
+}
+
+#startover {
+	font-family: Courier;
+	font-size: 20pt;
+	color: #00ff00;
+}
+
+h1 {
+	font-family: Courier;
+	color: #00ff00;
+}

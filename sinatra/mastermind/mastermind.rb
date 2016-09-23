@@ -3,15 +3,16 @@ require 'sinatra/reloader' if development?
 set :port, 9494
 
 class Mastermind
-	attr_accessor :board, :guess_count, :white_pin, :red_pin
+	attr_accessor :board, :guess_count, :white_pin, :red_pin, :guess
 
 	def initialize
-		@board           = Array.new(4, rand(6))
+		@board           = [1,2,3,4]
 		@white_pin_arr   = Array.new
 		@red_pin_arr 	 = Array.new
 	end
 
 	def guess_check(guess)
+		@guess = guess
 		guess = guess.split('')
 		guess = guess.each{|int| int.to_i}
 				
@@ -58,7 +59,8 @@ end
 post '/' do
 	session[:guess_count] += 1
 	session[:game].guess_check(params[:code])
-	redirect to('/')
+	redirect to('/win') if session[:game].white_pin_arr.length > 1
+	redirect to('/') 
 end
 
 get '/new' do

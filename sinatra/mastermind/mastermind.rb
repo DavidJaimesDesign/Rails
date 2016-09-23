@@ -14,8 +14,9 @@ class Mastermind
 	def guess_check(guess)
 		@guess = guess
 		guess = guess.split('')
-		guess = guess.each{|int| int.to_i}
-				
+		guess_arr = guess.map!{|v| v.to_i}
+		
+		puts guess_arr.inspect	
 		no_pin_arr = guess - board
 
 		board.each_with_index do |value, index|
@@ -28,11 +29,11 @@ class Mastermind
 	end
 
 	def display_white_pins
-		return "You have #{@white_pin_arr.length} correct digits in the correct location"
+		return "You have #{@white_pin_arr.length} correct digits but not in in the correct order"
 	end
 
 	def display_red_pins
-		return "You have #{@red_pin_arr.length} correct digits but not in the correct location"	
+		return "You have #{@red_pin_arr.length} correct digits in the correct order"	
 	end
 end
 
@@ -62,7 +63,7 @@ post '/' do
 	puts session[:game].white_pin_arr.inspect
 	puts session[:game].guess.inspect
 	puts session[:game].board.inspect
-	redirect to('/win') if session[:game].white_pin_arr.length > 1
+	redirect to('/win') if session[:game].red_pin_arr.length == 4
 	redirect to('/') 
 end
 
